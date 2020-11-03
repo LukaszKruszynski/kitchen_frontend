@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-
 @Component
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Product {
@@ -44,5 +43,29 @@ public class Product {
                 ", barcode=" + barcode +
                 ", expiryDate=" + expiryDate +
                 '}';
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getQuantity() {
+        return quantity;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public Long getBarcode() {
+        return barcode;
+    }
+
+    public LocalDate getExpiryDate() {
+        return expiryDate;
     }
 }
