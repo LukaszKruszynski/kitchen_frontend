@@ -1,11 +1,13 @@
 package com.kitchen.frontend;
 
 import com.kitchen.frontend.product.Product;
+import com.kitchen.frontend.product.ProductForm;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.tabs.Tabs;
@@ -32,15 +34,17 @@ public class MainView extends VerticalLayout {
     private TextField filterFridge = new TextField();
     private TextField filterPantry = new TextField();
     private TextField filterShopping = new TextField();
+    private TextField saveFridge = new TextField();
+    private ProductForm form = new ProductForm();
 
     public MainView(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
 
         Map<Tab, Component> tabsToPages = new HashMap<>();
 
-        gridFreezer.addColumn(Product::getName).setHeader("Name");
-        gridFreezer.addColumn(Product::getNote).setHeader("Note");
-        gridFreezer.addColumn(Product::getExpiryDate).setHeader("Expiry Date");
+        gridFreezer.addColumn(Product::getName).setHeader("Name").setKey("name");
+        gridFreezer.addColumn(Product::getNote).setHeader("Note").setKey("note");
+        gridFreezer.addColumn(Product::getExpiryDate).setHeader("Expiry Date").setKey("exp");
         gridFreezer.setItems(fetchProductsFreezer());
 
         gridFridge.addColumn(Product::getName).setHeader("Name");
@@ -112,12 +116,40 @@ public class MainView extends VerticalLayout {
             emptyFilterFetchShopping();
         });
 
+        gridFridge.asSingleSelect().addValueChangeListener(e -> form.setVisible(true));
+
+
         tabs.addSelectedChangeListener(event -> {
             tabsToPages.values().forEach(page -> page.setVisible(false));
             Component selectedPage = tabsToPages.get(tabs.getSelectedTab());
             selectedPage.setVisible(true);
+            if (gridFridge.isVisible()) {
+                filterShopping.setVisible(false);
+                filterFreezer.setVisible(false);
+                filterPantry.setVisible(false);
+                filterFridge.setVisible(true);
+            }
+            if (gridFreezer.isVisible()) {
+                filterShopping.setVisible(false);
+                filterFridge.setVisible(false);
+                filterPantry.setVisible(false);
+                filterFreezer.setVisible(true);
+            }
+            if (gridPantry.isVisible()) {
+                filterShopping.setVisible(false);
+                filterFridge.setVisible(false);
+                filterFreezer.setVisible(false);
+                filterPantry.setVisible(true);
+            }
+            if (gridShopping.isVisible()) {
+                filterFridge.setVisible(false);
+                filterFreezer.setVisible(false);
+                filterPantry.setVisible(false);
+                filterShopping.setVisible(true);
+            }
         });
-        add(filterFridge, filterFreezer, filterPantry, filterShopping, tabs, gridFreezer, gridFridge, gridPantry, gridShopping);
+        VerticalLayout mainContent = new VerticalLayout(gridFreezer, gridFridge, gridPantry, gridShopping,form);
+        add(mainContent,tabs, filterFridge, filterFreezer, filterPantry, filterShopping);
     }
 
     private List<Product> fetchProducts() {
@@ -188,13 +220,13 @@ public class MainView extends VerticalLayout {
 
     private void updatePantry() {
         if (!filterPantry.isEmpty()) {
-            gridPantry.setItems(this.fetchFridgeProductsByName(filterPantry.getValue()));
+            gridPantry.setItems(this.fetchPantryProductsByName(filterPantry.getValue()));
         }
     }
 
     private void updateShopping() {
         if (!filterShopping.isEmpty()) {
-            gridShopping.setItems(this.fetchFridgeProductsByName(filterShopping.getValue()));
+            gridShopping.setItems(this.fetchShoppingProductsByName(filterShopping.getValue()));
         }
     }
 
