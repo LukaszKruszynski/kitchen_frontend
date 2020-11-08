@@ -34,7 +34,6 @@ public class MainView extends VerticalLayout {
     private TextField filterFridge = new TextField();
     private TextField filterPantry = new TextField();
     private TextField filterShopping = new TextField();
-    private TextField saveFridge = new TextField();
     private ProductForm form = new ProductForm();
 
     public MainView(RestTemplate restTemplate) {
@@ -115,9 +114,9 @@ public class MainView extends VerticalLayout {
             updateShopping();
             emptyFilterFetchShopping();
         });
-
+        form.setVisible(false);
         gridFridge.asSingleSelect().addValueChangeListener(e -> form.setVisible(true));
-
+        gridFridge.asSingleSelect().addValueChangeListener(e -> form.setProduct(gridFridge.asSingleSelect().getValue()));
 
         tabs.addSelectedChangeListener(event -> {
             tabsToPages.values().forEach(page -> page.setVisible(false));
@@ -148,8 +147,7 @@ public class MainView extends VerticalLayout {
                 filterShopping.setVisible(true);
             }
         });
-        VerticalLayout mainContent = new VerticalLayout(gridFreezer, gridFridge, gridPantry, gridShopping,form);
-        add(mainContent,tabs, filterFridge, filterFreezer, filterPantry, filterShopping);
+        add(tabs, filterFridge, filterFreezer, filterPantry, filterShopping, gridFreezer, gridFridge, gridPantry, gridShopping, form);
     }
 
     private List<Product> fetchProducts() {
@@ -253,4 +251,5 @@ public class MainView extends VerticalLayout {
             gridShopping.setItems(this.fetchProductsShopping());
         }
     }
+
 }
