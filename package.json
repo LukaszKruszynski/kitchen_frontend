@@ -38,7 +38,8 @@
       "@vaadin/vaadin-tabs": "3.2.0",
       "@vaadin/vaadin-radio-button": "1.5.1",
       "@vaadin/vaadin-lumo-styles": "1.6.0",
-      "@vaadin/vaadin-material-styles": "1.3.2"
+      "@vaadin/vaadin-material-styles": "1.3.2",
+      "@vaadin/router": "1.7.2"
     },
     "devDependencies": {
       "webpack-babel-multi-target-plugin": "2.3.3",
@@ -49,14 +50,17 @@
       "webpack": "4.42.0",
       "chokidar": "^3.4.0",
       "webpack-merge": "4.2.2",
-      "webpack-dev-server": "3.10.3"
+      "webpack-dev-server": "3.10.3",
+      "script-ext-html-webpack-plugin": "2.1.4",
+      "awesome-typescript-loader": "5.2.1",
+      "progress-webpack-plugin": "0.0.24",
+      "html-webpack-plugin": "3.2.0",
+      "typescript": "3.8.3"
     },
-    "hash": "f279dea217eea47f578fdcc54b12ef3d64d996502854793fb830ded25119dba0"
+    "hash": "faf671c036407abb5d153da3f72accf6329d877a9fe4c42ca223e6bf6f6079df"
   },
   "dependencies": {
-    "lit-element": "^2.2.1",
     "@polymer/polymer": "3.2.0",
-    "@webcomponents/webcomponentsjs": "^2.2.10",
     "@vaadin/vaadin-grid": "5.7.4",
     "@vaadin/vaadin-icons": "4.3.1",
     "@vaadin/vaadin-split-layout": "4.3.0",
@@ -89,7 +93,10 @@
     "@vaadin/vaadin-tabs": "3.2.0",
     "@vaadin/vaadin-radio-button": "1.5.1",
     "@vaadin/vaadin-lumo-styles": "1.6.0",
-    "@vaadin/vaadin-material-styles": "1.3.2"
+    "@vaadin/vaadin-material-styles": "1.3.2",
+    "@vaadin/flow-frontend": "./target/flow-frontend",
+    "lit-element": "^2.2.1",
+    "@webcomponents/webcomponentsjs": "^2.2.10"
   },
   "devDependencies": {
     "webpack-babel-multi-target-plugin": "2.3.3",
@@ -100,6 +107,11 @@
     "webpack": "4.42.0",
     "chokidar": "^3.4.0",
     "webpack-merge": "4.2.2",
-    "webpack-dev-server": "3.10.3"
+    "webpack-dev-server": "3.10.3",
+    "script-ext-html-webpack-plugin": "2.1.4",
+    "awesome-typescript-loader": "5.2.1",
+    "progress-webpack-plugin": "0.0.24",
+    "html-webpack-plugin": "3.2.0",
+    "typescript": "3.8.3"
   }
 }

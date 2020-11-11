@@ -21,16 +21,20 @@ public class Product {
     @JsonProperty
     private LocalDate expiryDate;
 
+    @JsonProperty(value = "storageType")
+    private StorageType storageType;
+
     public Product() {
     }
 
-    public Product(Long id, String name, String quantity, String note, Long barcode, LocalDate expiryDate) {
+    public Product(Long id, String name, String quantity, String note, Long barcode, LocalDate expiryDate, StorageType storageType) {
         this.id = id;
         this.name = name;
         this.quantity = quantity;
         this.note = note;
         this.barcode = barcode;
         this.expiryDate = expiryDate;
+        this.storageType = storageType;
     }
 
     @Override
@@ -67,5 +71,29 @@ public class Product {
 
     public LocalDate getExpiryDate() {
         return expiryDate;
+    }
+
+    public StorageType getStorageType() {
+        return storageType;
+    }
+
+    public void setProductType(StorageType storageType) {
+        this.storageType = storageType;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public void setExpiryDate(LocalDate expiryDate) {
+        this.expiryDate = expiryDate;
     }
 }
